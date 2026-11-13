@@ -18,9 +18,9 @@ bool processPayment(double amount)
     char key[KEY_SIZE];
     bool authorized;
     const char *paymentKey = getenv("PAYMENT_KEY");
-    
+
     snprintf(key, sizeof key, "%s", paymentKey != NULL ? paymentKey : "");
     authorized = gatewayAuthorize(key, amount);
-    memset(key, 0, sizeof key);
+    explicit_bzero(key, sizeof key);
     return authorized;
 }
